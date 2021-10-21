@@ -1,0 +1,61 @@
+<resources>
+    <string name="app_name">DaisyLing</string>
+
+    <string name="login">登录</string>
+    <string name="login_username_hint">账号</string>
+    <string name="login_password_hint">密码</string>
+    <string name="login_empty_username">账号为空</string>
+    <string name="login_empty_password">密码为空</string>
+
+    <string name="home">首页</string>
+    <string name="home_recommended_music">推荐歌单</string>
+    <string name="home_popular_video">热门视频</string>
+    <string name="home_music_title">So Many Pets</string>
+    <string name="home_music_content">Mickey,minnie,Goofy</string>
+    <string name="home_more">查看更多</string>
+    <string name="home_no_history">没有历史记录</string>
+
+    <string name="my">我的</string>
+    <string name="my_username">EmilyWu</string>
+    <string name="my_vip_edit">会员中心</string>
+    <string name="my_download">我的下载</string>
+    <string name="my_favorite">我的收藏</string>
+    <string name="my_history">我的足迹</string>
+    <string name="my_play">我的播放</string>
+    <string name="my_cache">清除缓存</string>
+    <string name="my_app_version">版本信息</string>
+    <string name="my_logout">退出登录</string>
+    <string name="my_download_history_clear">清除下载记录</string>
+    <string name="my_favorite_history_clear">清除收藏记录</string>
+    <string name="my_history_clear">清除历史记录</string>
+    <string name="my_play_history_clear">清除播放记录</string>
+    <string name="my_cache_history_clear">清除缓存成功</string>
+    <string name="my_cache_no_history">暂无缓存</string>
+    <string name="my_app_version_name">V1.0.0版本</string>
+    <string name="my_app_version_content">主要功能：首页，搜索，音视频列表，我的</string>
+    <string name="my_app_date">发布日期：</string>
+    <string name="my_app_date_content">2021-10-20</string>
+    <string name="my_vip_toast">暂时还没开放</string>
+    <string name="my_add">+</string>
+
+    <string name="search">搜索</string>
+    <string name="search_cancel">取消</string>
+    <string name="search_no_history">暂无记录</string>
+    <string name="search_empty">搜索为空</string>
+    <string name="search_clear_history">清空搜索记录</string>
+
+    <string name="common_music">歌单</string>
+    <string name="common_video">视频</string>
+    <string name="common_more">查看更多</string>
+    <string name="common_bottom_text">没有更多数据了</string>
+
+    <string name="download">下载</string>
+    <string name="grant_storage_permissions">请授权权限</string>
+    <string name="loading">正在加载中…</string>
+    <string name="loading_finish">加载完成</string>
+    <string name="ok">确定</string>
+    <string name="cancel">取消</string>
+    <string name="delete">清空</string>
+    <string name="clear_cache_content">您确定要清除缓存吗？</string>
+
+</resources>

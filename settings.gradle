@@ -1,0 +1,2 @@
+rootProject.name = "bitscube_daisyling"
+include ':app'
