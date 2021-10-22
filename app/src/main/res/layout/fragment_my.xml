@@ -74,7 +74,7 @@
             android:text="@string/my_download"
             android:textColor="@color/black"
             android:textSize="13sp"
-            app:drawableTopCompat="@drawable/ic_download"
+            app:drawableTopCompat="@drawable/ic_download_focused"
             tools:ignore="RtlCompat" />
 
 
@@ -89,7 +89,7 @@
             android:text="@string/my_favorite"
             android:textColor="@color/black"
             android:textSize="13sp"
-            app:drawableTopCompat="@drawable/ic_favorite" />
+            app:drawableTopCompat="@drawable/ic_favorite_focused" />
 
         <TextView
             android:id="@+id/tv_my_history"
@@ -102,7 +102,7 @@
             android:text="@string/my_history"
             android:textColor="@color/black"
             android:textSize="13sp"
-            app:drawableTopCompat="@drawable/ic_history" />
+            app:drawableTopCompat="@drawable/ic_history_focused" />
 
         <TextView
             android:id="@+id/tv_my_play"
@@ -115,7 +115,7 @@
             android:text="@string/my_play"
             android:textColor="@color/black"
             android:textSize="13sp"
-            app:drawableTopCompat="@drawable/ic_play" />
+            app:drawableTopCompat="@drawable/ic_play_focused" />
 
     </LinearLayout>
 

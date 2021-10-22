@@ -13,6 +13,13 @@ class Const {
         const val DEFAULT_LIMIT = 5
         const val DEFAULT_OFFSET = 5
 
+        const val USER_ID="user_id"
+        const val ARTWORK_URL="artworkUrl100"
+        const val TRACK_NAME="trackName"
+        const val ARTIST_NAME="artistName"
+        const val TRACK_CENSORED_NAME="trackCensoredName"
+        const val PREVIEW_URL="previewUrl"
+
         const val MEDIA_LIMIT = 10
         const val MEDIA_OFFSET = 10
     }

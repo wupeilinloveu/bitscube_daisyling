@@ -64,6 +64,8 @@
                     android:layout_height="wrap_content"
                     android:background="@drawable/bg_white_radius"
                     android:divider="#FFFFFFFD"
+                    android:paddingTop="10dp"
+                    android:paddingEnd="10dp"
                     android:paddingStart="20dp"
                     android:paddingBottom="10dp"
                     android:visibility="visible"

@@ -3,7 +3,6 @@ package com.example.daisyling.model.bean
 /**
  * Created by Emily on 9/30/21
  */
-
 data class Music(
     val resultCount: Int,
     val results: MutableList<MusicResult>

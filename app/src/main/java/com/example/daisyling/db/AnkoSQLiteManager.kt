@@ -1,6 +1,8 @@
 package com.example.daisyling.db
 
 import android.content.Context
+import com.example.daisyling.R
+import com.example.daisyling.common.base.Const
 import com.example.daisyling.common.base.MyApp
 import org.jetbrains.anko.db.*
 
@@ -61,12 +63,12 @@ class AnkoSQLiteManager(var ctx: Context = MyApp.instance) {
             select(UserTable.TABLE_NAME)
                 .parseList(object : MapRowParser<List<User>> {
                     override fun parseRow(columns: Map<String, Any?>): ArrayList<User> {
-                        val id = columns.getValue("user_id")
-                        val artworkUrl100 = columns.getValue("artworkUrl100")
-                        val trackName = columns.getValue("trackName")
-                        val artistName = columns.getValue("artistName")
-                        val trackCensoredName = columns.getValue("trackCensoredName")
-                        val previewUrl = columns.getValue("previewUrl")
+                        val id = columns.getValue(Const.USER_ID)
+                        val artworkUrl100 = columns.getValue(Const.ARTWORK_URL)
+                        val trackName = columns.getValue(Const.TRACK_NAME)
+                        val artistName = columns.getValue(Const.ARTIST_NAME)
+                        val trackCensoredName = columns.getValue(Const.TRACK_CENSORED_NAME)
+                        val previewUrl = columns.getValue(Const.PREVIEW_URL)
                         val user = User(
                             user_id = id.toString(),
                             artworkUrl100 = artworkUrl100.toString(),
@@ -100,7 +102,7 @@ class AnkoSQLiteManager(var ctx: Context = MyApp.instance) {
                 true
             } else {
                 false
-                throw RuntimeException("Fail to insert")
+                throw RuntimeException( MyApp.context?.getString(R.string.fail_to_insert))
             }
 
         } finally {

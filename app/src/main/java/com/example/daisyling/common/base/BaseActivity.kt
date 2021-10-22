@@ -42,32 +42,10 @@ abstract class BaseActivity<VB : ViewBinding> : SupportActivity(), IUIOperation,
         }
     }
 
-//    open var handler: Handler = object : Handler() {
-//        override fun handleMessage(msg: Message) {
-//            if (!Thread.currentThread().isInterrupted) {
-//                when (msg.what) {
-//                    Const.SHOW -> {
-//                        if (!loadingDialog.isShowing) {
-//                            loadingDialog.show()
-//                        }
-//                    }
-//                    Const.HIDE -> {
-//                        loadingDialog.hide()
-//                    }
-//
-//
-//                }
-//            }
-//            super.handleMessage(msg)
-//        }
-//    }
-
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         _binding = getViewBinding()
         setContentView(binding.root)
-//        loadingDialog = LoadingDialogUtil(this)
         initView()
         initData()
         initListener()

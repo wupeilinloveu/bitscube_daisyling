@@ -35,7 +35,6 @@
     <string name="my_app_version_content">主要功能：首页，搜索，音视频列表，我的</string>
     <string name="my_app_date">发布日期：</string>
     <string name="my_app_date_content">2021-10-20</string>
-    <string name="my_vip_toast">暂时还没开放</string>
     <string name="my_add">+</string>
 
     <string name="search">搜索</string>
@@ -49,13 +48,23 @@
     <string name="common_more">查看更多</string>
     <string name="common_bottom_text">没有更多数据了</string>
 
+    <string name="music_name">歌单：</string>
+    <string name="video_name">视频：</string>
     <string name="download">下载</string>
-    <string name="grant_storage_permissions">请授权权限</string>
+    <string name="favorite">收藏</string>
+    <string name="share">分享</string>
+    <string name="alert">投诉</string>
+    <string name="delete">删除</string>
+    <string name="favorite_success">已收藏</string>
+    <string name="share_success">已分享</string>
+    <string name="alert_success">已投诉</string>
+    <string name="develop_tip">正在开发中</string>
     <string name="loading">正在加载中…</string>
     <string name="loading_finish">加载完成</string>
     <string name="ok">确定</string>
     <string name="cancel">取消</string>
-    <string name="delete">清空</string>
+    <string name="clear">清空</string>
     <string name="clear_cache_content">您确定要清除缓存吗？</string>
+    <string name="fail_to_insert">插入失败</string>
 
 </resources>

@@ -10,7 +10,6 @@ import com.example.daisyling.R
 import com.example.daisyling.common.base.BaseFragment
 import com.example.daisyling.common.util.Utils.showToast
 import com.example.daisyling.databinding.FragmentMyBinding
-import com.example.daisyling.db.AnkoSQLiteManager
 import com.example.daisyling.db.User
 import com.example.daisyling.ui.activity.*
 
@@ -33,7 +32,7 @@ class MyFragment : BaseFragment<FragmentMyBinding>() {
 
     override fun initListener() {
         binding.tvMyVip.setOnClickListener {
-            showToast(_mActivity, getString(R.string.my_vip_toast))
+            showToast(_mActivity, getString(R.string.develop_tip))
         }
 
         binding.tvMyDownload.setOnClickListener {
@@ -58,13 +57,15 @@ class MyFragment : BaseFragment<FragmentMyBinding>() {
         }
 
         binding.rlMyCache.setOnClickListener {
-            data = AnkoSQLiteManager().selectAllUsers()
-            if (data.size > 0) {
-                AnkoSQLiteManager().deleteUser()
-                showToast(_mActivity, getString(R.string.my_cache_history_clear))
-            } else {
-                showToast(_mActivity, getString(R.string.my_cache_no_history))
-            }
+            showToast(_mActivity, getString(R.string.develop_tip))
+
+//            data = AnkoSQLiteManager().selectAllUsers()
+//            if (data.size > 0) {
+//                AnkoSQLiteManager().deleteUser()
+//                showToast(_mActivity, getString(R.string.my_cache_history_clear))
+//            } else {
+//                showToast(_mActivity, getString(R.string.my_cache_no_history))
+//            }
 
         }
 

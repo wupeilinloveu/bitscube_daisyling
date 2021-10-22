@@ -30,7 +30,7 @@ class CircleImageView(context: Context, attributeSet: AttributeSet) :
             val viewMinSize = Math.min(width, height)
 
 
-            if (mShader == null || !rawBitmap.equals(mBitmap)) {
+            if (mShader == null || rawBitmap != mBitmap) {
                 mBitmap = rawBitmap
                 mShader = BitmapShader(rawBitmap, Shader.TileMode.CLAMP, Shader.TileMode.CLAMP)
             }
@@ -43,7 +43,7 @@ class CircleImageView(context: Context, attributeSet: AttributeSet) :
                 mShader?.setLocalMatrix(mMatrix)
             }
 
-            mPaint.setShader(mShader)
+            mPaint.shader = mShader
             mPaint.isAntiAlias = true
             val radius = viewMinSize / 2.0f
             canvas?.drawCircle(radius, radius, radius, mPaint)
@@ -54,7 +54,7 @@ class CircleImageView(context: Context, attributeSet: AttributeSet) :
 
     }
 
-    fun getBitmap(drawable: Drawable): Bitmap? {
+    private fun getBitmap(drawable: Drawable): Bitmap? {
         if (drawable is BitmapDrawable) {
 
             return drawable.bitmap

@@ -31,7 +31,7 @@
                 android:layout_height="@dimen/ic_search_height"
                 android:layout_gravity="center"
                 android:layout_marginStart="@dimen/ic_search_marginStart"
-                android:src="@drawable/ic_search" />
+                android:src="@mipmap/ic_search" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -48,8 +48,7 @@
 
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginBottom="10dp">
+        android:layout_height="match_parent">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -60,9 +59,7 @@
                 android:id="@+id/ll_search_music"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
-                android:layout_marginTop="15dp"
-                android:layout_marginRight="10dp"
+                android:layout_marginTop="10dp"
                 android:background="@drawable/bg_white_radius"
                 android:orientation="vertical"
                 android:visibility="gone">
@@ -71,19 +68,20 @@
                     android:id="@+id/tv_search_music"
                     android:layout_width="wrap_content"
                     android:layout_height="0dp"
-                    android:layout_marginStart="10dp"
+                    android:layout_marginStart="20dp"
                     android:layout_marginTop="10dp"
+                    android:layout_marginBottom="10dp"
                     android:layout_weight="1"
                     android:text="@string/home_recommended_music"
                     android:textColor="@color/black"
-                    android:textSize="15sp"
+                    android:textSize="17sp"
                     android:visibility="visible" />
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/rv_search_music"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="10dp"
+                    android:layout_marginStart="20dp"
                     android:layout_marginEnd="10dp"
                     android:divider="#FFFFFFFD"
                     android:visibility="visible" />
@@ -91,13 +89,12 @@
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="0.5dp"
-                    android:layout_marginTop="10dp"
                     android:background="@color/colorView" />
 
                 <TextView
                     android:id="@+id/tv_search_music_more"
                     android:layout_width="match_parent"
-                    android:layout_height="45dp"
+                    android:layout_height="40dp"
                     android:gravity="center"
                     android:text="@string/home_more"
                     android:textSize="13sp"
@@ -108,9 +105,8 @@
                 android:id="@+id/ll_search_video"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
-                android:layout_marginTop="15dp"
-                android:layout_marginRight="10dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
                 android:background="@drawable/bg_white_radius"
                 android:orientation="vertical"
                 android:visibility="gone">
@@ -119,8 +115,9 @@
                     android:id="@+id/tv_search_video"
                     android:layout_width="wrap_content"
                     android:layout_height="0dp"
-                    android:layout_marginStart="10dp"
+                    android:layout_marginStart="20dp"
                     android:layout_marginTop="10dp"
+                    android:layout_marginBottom="10dp"
                     android:layout_weight="1"
                     android:text="@string/home_popular_video"
                     android:textSize="17sp"
@@ -131,7 +128,7 @@
                     android:id="@+id/rv_search_video"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="10dp"
+                    android:layout_marginStart="20dp"
                     android:layout_marginEnd="10dp"
                     android:background="@drawable/bg_white_radius"
                     android:divider="#FFFFFFFD"
@@ -140,13 +137,12 @@
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="0.5dp"
-                    android:layout_marginTop="10dp"
                     android:background="@color/colorView" />
 
                 <TextView
                     android:id="@+id/tv_search_video_more"
                     android:layout_width="match_parent"
-                    android:layout_height="45dp"
+                    android:layout_height="40dp"
                     android:gravity="center"
                     android:text="@string/home_more"
                     android:textSize="13sp"

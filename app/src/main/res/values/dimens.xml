@@ -16,5 +16,7 @@
     <dimen name="ic_arrow_back_height">16dp</dimen>
     <dimen name="ic_arrow_forward_width">16dp</dimen>
     <dimen name="ic_arrow_forward_height">16dp</dimen>
+    <dimen name="ic_more_vert_width">20dp</dimen>
+    <dimen name="ic_more_vert_height">20dp</dimen>
     <dimen name="divider_with_shadow_height">16dp</dimen>
 </resources>

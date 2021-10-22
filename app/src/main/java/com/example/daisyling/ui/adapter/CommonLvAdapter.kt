@@ -42,10 +42,11 @@ class CommonLvAdapter(val context: Context, var data: List<User>) : BaseAdapter(
         vh.mCommonTvTitle.text = name
         vh.mCommonTvContent.text =
             data[position].artistName + "," + data[position].trackCensoredName
+        vh.mCommonImgMoreVert.visibility=View.GONE
 
         val baseUrl = data[position].previewUrl?.substring(0, 34)
         val fileUrl = data[position].previewUrl?.substring(34)
-        vh.mCommonRlItem.setOnClickListener {
+        vh.mCommonLlItem.setOnClickListener {
            vh.mCommonProgress.visibility = View.VISIBLE
             desFilePath = context.getExternalFilesDir(null)!!.absolutePath + "/" + "$name"
             startDownload( baseUrl!!, fileUrl!!, desFilePath,vh.mCommonProgress)
@@ -54,10 +55,11 @@ class CommonLvAdapter(val context: Context, var data: List<User>) : BaseAdapter(
     }
 
     inner class ViewHolder(v: View) {
-        val mCommonRlItem: RelativeLayout = v.findViewById(R.id.common_rl_item)
+        val mCommonLlItem: LinearLayout = v.findViewById(R.id.common_ll_item)
         val mCommonIvIcon: ImageView = v.findViewById(R.id.common_iv_icon)
         val mCommonTvTitle: TextView = v.findViewById(R.id.common_tv_title)
         val mCommonTvContent: TextView = v.findViewById(R.id.common_tv_content)
+        val mCommonImgMoreVert: ImageView = v.findViewById(R.id.common_img_more_vert)
         val mCommonProgress: ProgressBar = v.findViewById(R.id.common_progress)
     }
 

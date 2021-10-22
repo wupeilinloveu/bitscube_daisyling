@@ -21,7 +21,6 @@ object SQLiteDatabase {
         )
     }
 
-
     /**
      * Delete Data
      */
