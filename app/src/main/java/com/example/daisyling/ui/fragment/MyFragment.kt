@@ -1,27 +1,34 @@
 package com.example.daisyling.ui.fragment
 
 import android.content.Intent
-import android.os.Bundle
 import android.os.Message
+import android.text.TextUtils
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.app.AlertDialog
 import com.example.daisyling.R
 import com.example.daisyling.common.base.BaseFragment
+import com.example.daisyling.common.util.CacheUtil
 import com.example.daisyling.common.util.Utils.showToast
 import com.example.daisyling.databinding.FragmentMyBinding
-import com.example.daisyling.db.User
 import com.example.daisyling.ui.activity.*
 
 /**
  * Created by Emily on 9/30/21
  */
 class MyFragment : BaseFragment<FragmentMyBinding>() {
-    private var data = ArrayList<User>()
+    override fun getBinding(inflater: LayoutInflater, viewGroup: ViewGroup?) =
+        FragmentMyBinding.inflate(inflater, viewGroup, false)
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        initListener()
+    override fun onResume() {
+        super.onResume()
+        val cache = CacheUtil.util.getCacheSize(_mActivity)
+        if (!TextUtils.isEmpty(cache)) {
+            binding.tvCache.text = cache
+        } else {
+            binding.tvCache.text = getString(R.string.default_cache)
+        }
     }
 
     override fun initView() {
@@ -45,28 +52,13 @@ class MyFragment : BaseFragment<FragmentMyBinding>() {
             startActivity(intent)
         }
 
-
-        binding.tvMyHistory.setOnClickListener {
-            val intent = Intent(_mActivity, MyHistoryActivity::class.java)
-            startActivity(intent)
-        }
-
         binding.tvMyPlay.setOnClickListener {
             val intent = Intent(_mActivity, MyPlayActivity::class.java)
             startActivity(intent)
         }
 
         binding.rlMyCache.setOnClickListener {
-            showToast(_mActivity, getString(R.string.develop_tip))
-
-//            data = AnkoSQLiteManager().selectAllUsers()
-//            if (data.size > 0) {
-//                AnkoSQLiteManager().deleteUser()
-//                showToast(_mActivity, getString(R.string.my_cache_history_clear))
-//            } else {
-//                showToast(_mActivity, getString(R.string.my_cache_no_history))
-//            }
-
+            showCacheDialog()
         }
 
         binding.rlMyAppVersion.setOnClickListener {
@@ -75,19 +67,52 @@ class MyFragment : BaseFragment<FragmentMyBinding>() {
         }
 
         binding.rlMyLogout.setOnClickListener {
-            val intent = Intent(_mActivity, LoginActivity::class.java)
-            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK)
-            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-            startActivity(intent)
-            _mActivity.finish()
+            showLogoutDialog()
         }
+    }
+
+    private fun showCacheDialog() {
+        val builder = AlertDialog.Builder(_mActivity)
+        builder.setMessage(getString(R.string.clear_cache_content))
+        builder.setPositiveButton(
+            getString(R.string.ok)
+        ) { _, _ ->
+            binding.tvCache.text = getString(R.string.default_cache)
+            CacheUtil.util.clearCache(_mActivity)
+            showToast(_mActivity, getString(R.string.clear_cache_success))
+        }
+        builder.setNegativeButton(
+            getString(R.string.cancel)
+        ) { _, _ -> }
+        val alert = builder.create()
+        alert.show()
+    }
+
+    private fun showLogoutDialog() {
+        val builder = AlertDialog.Builder(_mActivity)
+        builder.setMessage(getString(R.string.logout_content))
+        builder.setPositiveButton(
+            getString(R.string.ok)
+        ) { _, _ ->
+            logout()
+        }
+        builder.setNegativeButton(
+            getString(R.string.cancel)
+        ) { _, _ -> }
+        val alert = builder.create()
+        alert.show()
+    }
+
+    private fun logout() {
+        val intent = Intent(_mActivity, LoginActivity::class.java)
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK)
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+        startActivity(intent)
+        _mActivity.finish()
     }
 
     override fun onClick(v: View?) {
     }
-
-    override fun getBinding(inflater: LayoutInflater, viewGroup: ViewGroup?) =
-        FragmentMyBinding.inflate(inflater, viewGroup, false)
 
     override fun onHttpSuccess(reqType: Int, msg: Message) {
     }

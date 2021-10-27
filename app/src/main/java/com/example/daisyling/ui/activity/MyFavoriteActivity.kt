@@ -4,30 +4,14 @@ import android.os.Message
 import android.view.View
 import com.example.daisyling.common.base.BaseActivity
 import com.example.daisyling.databinding.ActivityMyFavoriteBinding
-import com.example.daisyling.db.AnkoSQLiteManager
-import com.example.daisyling.db.User
-import com.example.daisyling.ui.adapter.CommonLvAdapter
-import org.jetbrains.anko.doAsync
 
 /**
  * Created by Emily on 10/19/21
  */
 class MyFavoriteActivity : BaseActivity<ActivityMyFavoriteBinding>() {
-    private lateinit var adapter: CommonLvAdapter
-    private var data = ArrayList<User>()
-
     override fun getViewBinding() = ActivityMyFavoriteBinding.inflate(layoutInflater)
 
     override fun initView() {
-        doAsync {
-            data = AnkoSQLiteManager().selectAllUsers()
-            if (data.size > 0) {
-                binding.tvDelete.visibility = View.VISIBLE
-                binding.lv.visibility=View.VISIBLE
-                adapter = CommonLvAdapter(this@MyFavoriteActivity, data)
-                binding.lv.adapter = adapter
-            }
-        }
     }
 
     override fun initData() {
@@ -36,11 +20,6 @@ class MyFavoriteActivity : BaseActivity<ActivityMyFavoriteBinding>() {
     override fun initListener() {
         binding.imgBack.setOnClickListener {
             finish()
-        }
-        binding.tvDelete.setOnClickListener {
-            AnkoSQLiteManager().deleteUser()
-            binding.tvDelete.visibility = View.GONE
-            binding.lv.visibility = View.GONE
         }
     }
 

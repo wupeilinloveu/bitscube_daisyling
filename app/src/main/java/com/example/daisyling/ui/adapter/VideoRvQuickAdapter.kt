@@ -15,16 +15,17 @@ import com.chad.library.adapter.base.BaseQuickAdapter
 import com.chad.library.adapter.base.viewholder.BaseViewHolder
 import com.example.daisyling.R
 import com.example.daisyling.common.util.Utils
+import com.example.daisyling.common.util.Utils.showToast
 import com.example.daisyling.common.util.download.DownloadListener
 import com.example.daisyling.common.util.download.DownloadUtil
 import com.example.daisyling.common.util.download.InputParameter
-import com.example.daisyling.db.AnkoSQLiteManager
-import com.example.daisyling.db.User
+import com.example.daisyling.db.AppDatabase
+import com.example.daisyling.db.Track
 import com.example.daisyling.model.bean.VideoResult
 import com.scwang.smartrefresh.layout.util.DensityUtil
 import com.squareup.picasso.Picasso
-import org.jetbrains.anko.doAsync
 import java.io.File
+import kotlin.concurrent.thread
 
 /**
  * Created by Emily on 9/30/21
@@ -68,7 +69,7 @@ class VideoRvQuickAdapter(data: MutableList<VideoResult>?) :
         mCommonLlItem.setOnClickListener {
             if (myFile.toString().contains(name)) {
                 Utils.installFile(context, myFile!!, "video/x-m4v")
-                Utils.openLocalFile(myFile.toString(), context)
+                Utils.openLocalFile(context,myFile.toString())
             } else {
                 mCommonProgress.visibility = View.VISIBLE
                 desFilePath = context.getExternalFilesDir(null)!!.absolutePath + "/" + "$name"
@@ -175,20 +176,20 @@ class VideoRvQuickAdapter(data: MutableList<VideoResult>?) :
                         mProgress.visibility = View.GONE
                         myFile = file
                         Utils.installFile(context, file, "video/x-m4v")
-                        Utils.openLocalFile(myFile.toString(), context)
+                        Utils.openLocalFile(context,myFile.toString())
                         //Insert data
-                        doAsync {
-                            val user = User(
-                                user_id = trackId.toString(),
+                        val videoDao= AppDatabase.getDatabase(context).trackDao()
+                        thread {
+                            val track = Track(
+                                trackId = trackId.toString(),
                                 artworkUrl100 = artworkUrl100,
                                 trackName = trackName,
                                 artistName = artistName,
                                 trackCensoredName = trackCensoredName,
                                 previewUrl = previewUrl
                             )
-                            AnkoSQLiteManager().insertUser(user)
+                            videoDao.insertTrack(track)
                         }
-
                     }
 
                     override fun onProgress(
@@ -200,6 +201,8 @@ class VideoRvQuickAdapter(data: MutableList<VideoResult>?) :
                     }
 
                     override fun onFailed(errMsg: String) {
+                        mProgress.visibility = View.GONE
+                        showToast(context, errMsg)
                     }
                 })
     }

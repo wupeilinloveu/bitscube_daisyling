@@ -30,7 +30,6 @@
         <activity android:name=".ui.activity.VideoActivity"/>
         <activity android:name=".ui.activity.MyDownLoadActivity"/>
         <activity android:name=".ui.activity.MyFavoriteActivity"/>
-        <activity android:name=".ui.activity.MyHistoryActivity"/>
         <activity android:name=".ui.activity.MyPlayActivity"/>
         <activity android:name=".ui.activity.MyAppVersionActivity"/>
         <provider

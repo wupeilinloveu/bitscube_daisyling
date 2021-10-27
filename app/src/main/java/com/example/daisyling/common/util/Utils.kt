@@ -22,7 +22,7 @@ object Utils {
     /**
      * Install File
      */
-    fun installFile(context: Context, file: File, type:String) {
+    fun installFile(context: Context, file: File, type: String) {
         val authority = "com.example.daisyling.ui.activity.FileProvider"
         val intent = Intent(Intent.ACTION_VIEW)
         val data: Uri
@@ -31,6 +31,7 @@ object Utils {
         } else {
             intent.flags = Intent.FLAG_GRANT_READ_URI_PERMISSION
             data = FileProvider.getUriForFile(context, authority, file)
+
         }
         intent.setDataAndType(data, type)
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
@@ -40,7 +41,7 @@ object Utils {
     /**
      * Open local file
      */
-    fun openLocalFile(path: String, context: Context) {
+    fun openLocalFile(context: Context, path: String) {
         try {
             val file = File(path)
             var uri: Uri? = null

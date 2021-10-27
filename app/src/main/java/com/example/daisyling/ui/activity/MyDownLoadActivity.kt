@@ -2,30 +2,35 @@ package com.example.daisyling.ui.activity
 
 import android.os.Message
 import android.view.View
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.daisyling.common.base.BaseActivity
 import com.example.daisyling.databinding.ActivityMyDownloadBinding
-import com.example.daisyling.db.AnkoSQLiteManager
-import com.example.daisyling.db.User
-import com.example.daisyling.ui.adapter.CommonLvAdapter
-import org.jetbrains.anko.doAsync
+import com.example.daisyling.db.AppDatabase
+import com.example.daisyling.db.TrackDao
+import com.example.daisyling.ui.adapter.CommonRvAdapter
+import kotlin.concurrent.thread
 
 /**
  * Created by Emily on 10/19/21
  */
 class MyDownLoadActivity : BaseActivity<ActivityMyDownloadBinding>() {
-    private lateinit var adapter: CommonLvAdapter
-    private var data = ArrayList<User>()
+    private lateinit var trackDao: TrackDao
+    private lateinit var adapter: CommonRvAdapter
 
     override fun getViewBinding() = ActivityMyDownloadBinding.inflate(layoutInflater)
 
     override fun initView() {
-        doAsync {
-            data = AnkoSQLiteManager().selectAllUsers()
-            if (data.size > 0) {
-                binding.tvDelete.visibility = View.VISIBLE
-                binding.lv.visibility=View.VISIBLE
-                adapter = CommonLvAdapter(this@MyDownLoadActivity, data)
-                binding.lv.adapter = adapter
+        //Query data
+        trackDao = AppDatabase.getDatabase(this).trackDao()
+        thread {
+            val trackList = trackDao.loadAllTracks()
+            if (trackList.isNotEmpty()) {
+                binding.rv.visibility = View.VISIBLE
+                binding.rv.layoutManager = LinearLayoutManager(this)
+                adapter = CommonRvAdapter(this,trackList)
+                binding.rv.adapter = adapter
+            }else{
+                binding.rv.visibility = View.GONE
             }
         }
     }
@@ -36,11 +41,6 @@ class MyDownLoadActivity : BaseActivity<ActivityMyDownloadBinding>() {
     override fun initListener() {
         binding.imgBack.setOnClickListener {
             finish()
-        }
-        binding.tvDelete.setOnClickListener {
-            AnkoSQLiteManager().deleteUser()
-            binding.tvDelete.visibility = View.GONE
-            binding.lv.visibility = View.GONE
         }
     }
 

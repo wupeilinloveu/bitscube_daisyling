@@ -38,7 +38,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="end"
             android:padding="15dp"
-            android:text="@string/delete"
+            android:text="@string/clear"
             android:visibility="gone"
             tools:ignore="ContentDescription" />
 
@@ -46,15 +46,14 @@
 
     <View
         android:layout_width="match_parent"
-        android:layout_height="0.5dp"
+        android:layout_height="0.3dp"
         android:background="@color/colorView" />
 
-    <ListView
-        android:id="@+id/lv"
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rv"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/white"
-        android:divider="@null"
         android:paddingStart="20dp"
         android:paddingTop="15dp"
         android:paddingEnd="10dp"

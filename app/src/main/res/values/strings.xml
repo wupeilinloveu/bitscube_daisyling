@@ -18,10 +18,11 @@
     <string name="my">我的</string>
     <string name="my_username">EmilyWu</string>
     <string name="my_vip_edit">会员中心</string>
-    <string name="my_download">我的下载</string>
-    <string name="my_favorite">我的收藏</string>
+    <string name="my_download">本地/下载</string>
+    <string name="my_favorite">收藏</string>
     <string name="my_history">我的足迹</string>
-    <string name="my_play">我的播放</string>
+    <string name="my_play">最近播放</string>
+    <string name="my_setting">设置</string>
     <string name="my_cache">清除缓存</string>
     <string name="my_app_version">版本信息</string>
     <string name="my_logout">退出登录</string>
@@ -55,6 +56,7 @@
     <string name="share">分享</string>
     <string name="alert">投诉</string>
     <string name="delete">删除</string>
+    <string name="download_success">已下载</string>
     <string name="favorite_success">已收藏</string>
     <string name="share_success">已分享</string>
     <string name="alert_success">已投诉</string>
@@ -64,7 +66,13 @@
     <string name="ok">确定</string>
     <string name="cancel">取消</string>
     <string name="clear">清空</string>
-    <string name="clear_cache_content">您确定要清除缓存吗？</string>
+    <string name="clear_download_content">确定要删除下载记录吗？</string>
+    <string name="clear_favorite_content">确定要清空收藏记录吗？</string>
+    <string name="clear_play_content">确定要清空播放记录吗？</string>
+    <string name="clear_cache_content">确定要清除缓存吗？</string>
+    <string name="clear_cache_success">清除完毕</string>
     <string name="fail_to_insert">插入失败</string>
-
+    <string name="app_version">V1.0.0</string>
+    <string name="default_cache">0.00KB</string>
+    <string name="logout_content">确定要退出登录吗？</string>
 </resources>
