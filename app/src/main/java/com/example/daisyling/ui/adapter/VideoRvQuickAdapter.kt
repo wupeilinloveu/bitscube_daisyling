@@ -19,8 +19,8 @@ import com.example.daisyling.common.util.Utils.showToast
 import com.example.daisyling.common.util.download.DownloadListener
 import com.example.daisyling.common.util.download.DownloadUtil
 import com.example.daisyling.common.util.download.InputParameter
-import com.example.daisyling.db.AppDatabase
 import com.example.daisyling.db.Track
+import com.example.daisyling.db.TrackDatabase
 import com.example.daisyling.model.bean.VideoResult
 import com.scwang.smartrefresh.layout.util.DensityUtil
 import com.squareup.picasso.Picasso
@@ -36,33 +36,33 @@ class VideoRvQuickAdapter(data: MutableList<VideoResult>?) :
     private var myFile: File? = null
 
     @SuppressLint("SetTextI18n")
-    override fun convert(baseViewHolder: BaseViewHolder, list: VideoResult) {
+    override fun convert(holder: BaseViewHolder, item: VideoResult) {
         val mCommonLlItem =
-            baseViewHolder.getView<LinearLayout>(R.id.common_ll_item)
+            holder.getView<LinearLayout>(R.id.common_ll_item)
         val mCommonIvIcon =
-            baseViewHolder.getView<ImageView>(R.id.common_iv_icon)
+            holder.getView<ImageView>(R.id.common_iv_icon)
         val mCommonTvTitle =
-            baseViewHolder.getView<TextView>(R.id.common_tv_title)
+            holder.getView<TextView>(R.id.common_tv_title)
         val mCommonTvContent =
-            baseViewHolder.getView<TextView>(R.id.common_tv_content)
+            holder.getView<TextView>(R.id.common_tv_content)
         val mCommonImgMoreVert =
-            baseViewHolder.getView<ImageView>(R.id.common_img_more_vert)
+            holder.getView<ImageView>(R.id.common_img_more_vert)
         val mCommonProgress =
-            baseViewHolder.getView<ProgressBar>(R.id.common_progress)
+            holder.getView<ProgressBar>(R.id.common_progress)
 
-        Picasso.get().load(list.artworkUrl100)
-            .transform(com.example.daisyling.ui.view.CircleCornerForm()).into(mCommonIvIcon)
-        val name = list.trackName
+        Picasso.get().load(item.artworkUrl100)
+            .transform(com.example.daisyling.ui.widget.CircleCornerForm()).into(mCommonIvIcon)
+        val name = item.trackName
         mCommonTvTitle.text = name
         mCommonTvContent.text =
-            list.artistName + "," + list.trackCensoredName
+            item.artistName + "," + item.trackCensoredName
 
-        val trackId = list.trackId
-        val artworkUrl100 = list.artworkUrl100
-        val trackName = list.trackName
-        val artistName = list.artistName
-        val trackCensoredName = list.trackCensoredName
-        val url = list.previewUrl
+        val trackId = item.trackId
+        val artworkUrl100 = item.artworkUrl100
+        val trackName = item.trackName
+        val artistName = item.artistName
+        val trackCensoredName = item.trackCensoredName
+        val url = item.previewUrl
 
         val baseUrl = url.substring(0, 34)
         val fileUrl = url.substring(34)
@@ -103,7 +103,7 @@ class VideoRvQuickAdapter(data: MutableList<VideoResult>?) :
     ) {
         val buttonDialog: Dialog = Dialog(context, R.style.BottomDialog)
         val view: View =
-            LayoutInflater.from(context).inflate(R.layout.common_dialog_content_circle, null)
+            LayoutInflater.from(context).inflate(R.layout.common_bottom_dialog, null)
         val mTvName: TextView = view.findViewById(R.id.tv_name)
         val mTvDownLoad: TextView = view.findViewById(R.id.tv_download)
         val mTvFavorite: TextView = view.findViewById(R.id.tv_favorite)
@@ -135,22 +135,22 @@ class VideoRvQuickAdapter(data: MutableList<VideoResult>?) :
 
         mTvFavorite.setOnClickListener {
             buttonDialog.dismiss()
-            Utils.showToast(context, context.getString(R.string.favorite_success))
+            showToast(context, context.getString(R.string.favorite_success))
         }
 
         mTvShare.setOnClickListener {
             buttonDialog.dismiss()
-            Utils.showToast(context, context.getString(R.string.share_success))
+            showToast(context, context.getString(R.string.share_success))
         }
 
         mTvAlert.setOnClickListener {
             buttonDialog.dismiss()
-            Utils.showToast(context, context.getString(R.string.alert_success))
+            showToast(context, context.getString(R.string.alert_success))
         }
 
         mTvDelete.setOnClickListener {
             buttonDialog.dismiss()
-            Utils.showToast(context, context.getString(R.string.develop_tip))
+            showToast(context, context.getString(R.string.develop_tip))
         }
     }
 
@@ -168,17 +168,17 @@ class VideoRvQuickAdapter(data: MutableList<VideoResult>?) :
     ) {
         DownloadUtil.getInstance()
             .downloadFile(
-                InputParameter.Builder(baseUrl, fileUrl, desFilePath)
+                InputParameter.Builder(baseUrl, fileUrl, desFilePath!!)
                     .setCallbackOnUiThread(true)
                     .build(), object : DownloadListener {
                     @SuppressLint("SetTextI18n")
-                    override fun onFinish(file: File) {
+                    override fun onFinish(file: File?) {
                         mProgress.visibility = View.GONE
                         myFile = file
-                        Utils.installFile(context, file, "video/x-m4v")
+                        Utils.installFile(context, file!!, "video/x-m4v")
                         Utils.openLocalFile(context,myFile.toString())
                         //Insert data
-                        val videoDao= AppDatabase.getDatabase(context).trackDao()
+                        val videoDao= TrackDatabase.getDatabase(context).trackDao()
                         thread {
                             val track = Track(
                                 trackId = trackId.toString(),
@@ -200,9 +200,9 @@ class VideoRvQuickAdapter(data: MutableList<VideoResult>?) :
                         mProgress.progress = progress
                     }
 
-                    override fun onFailed(errMsg: String) {
+                    override fun onFailed(errMsg: String?) {
                         mProgress.visibility = View.GONE
-                        showToast(context, errMsg)
+                        showToast(context, errMsg!!)
                     }
                 })
     }

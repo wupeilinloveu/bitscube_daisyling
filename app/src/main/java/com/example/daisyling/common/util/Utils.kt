@@ -44,8 +44,7 @@ object Utils {
     fun openLocalFile(context: Context, path: String) {
         try {
             val file = File(path)
-            var uri: Uri? = null
-            uri = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+            val uri: Uri? = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
                 FileProvider.getUriForFile(context, context.packageName + ".fileProvider", file)
             } else {
                 Uri.fromFile(file)

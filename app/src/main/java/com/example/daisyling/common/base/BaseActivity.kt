@@ -51,11 +51,6 @@ abstract class BaseActivity<VB : ViewBinding> : SupportActivity(), IUIOperation,
         initListener()
     }
 
-    override fun onDestroy() {
-        super.onDestroy()
-        _binding == null
-    }
-
     protected abstract fun getViewBinding(): VB
 
     override fun dispatchTouchEvent(ev: MotionEvent): Boolean {

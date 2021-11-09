@@ -8,10 +8,10 @@ import androidx.room.*
 @Dao
 interface TrackDao {
     @Insert
-    fun insertTrack(track:Track):Long
+    fun insertTrack(track: Track):Long
 
     @Update
-    fun updateTrack(newTrack:Track)
+    fun updateTrack(newTrack: Track)
 
     @Query("select * from Track")
     fun loadAllTracks():MutableList<Track>

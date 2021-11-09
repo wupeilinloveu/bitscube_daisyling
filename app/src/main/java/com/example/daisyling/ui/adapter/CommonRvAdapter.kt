@@ -18,8 +18,8 @@ import com.example.daisyling.common.util.Utils
 import com.example.daisyling.common.util.download.DownloadListener
 import com.example.daisyling.common.util.download.DownloadUtil
 import com.example.daisyling.common.util.download.InputParameter
-import com.example.daisyling.db.AppDatabase
 import com.example.daisyling.db.Track
+import com.example.daisyling.db.TrackDatabase
 import com.scwang.smartrefresh.layout.util.DensityUtil
 import com.squareup.picasso.Picasso
 import java.io.File
@@ -43,7 +43,7 @@ class CommonRvAdapter (var context: Context, val list: MutableList<Track>?) :
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         try {
             Picasso.get().load(list!![position].artworkUrl100)
-                .transform(com.example.daisyling.ui.view.CircleCornerForm()).into(holder.mCommonIvIcon)
+                .transform(com.example.daisyling.ui.widget.CircleCornerForm()).into(holder.mCommonIvIcon)
             val name = list[position].trackName
             holder.mCommonTvTitle.text = name
             holder.mCommonTvContent.text =
@@ -94,7 +94,7 @@ class CommonRvAdapter (var context: Context, val list: MutableList<Track>?) :
     ) {
         val buttonDialog: Dialog = Dialog(context, R.style.BottomDialog)
         val view: View =
-            LayoutInflater.from(context).inflate(R.layout.common_dialog_content_circle, null)
+            LayoutInflater.from(context).inflate(R.layout.common_bottom_dialog, null)
         val mTvName: TextView = view.findViewById(R.id.tv_name)
         val mTvDownLoad: TextView = view.findViewById(R.id.tv_download)
         val mTvFavorite: TextView = view.findViewById(R.id.tv_favorite)
@@ -136,7 +136,7 @@ class CommonRvAdapter (var context: Context, val list: MutableList<Track>?) :
         mTvDelete.setOnClickListener {
             buttonDialog.dismiss()
             //Delete data
-            val trackDao = AppDatabase.getDatabase(context).trackDao()
+            val trackDao = TrackDatabase.getDatabase(context).trackDao()
             thread {
                 trackDao.deleteTrackByTrackId(trackId)
             }
@@ -161,17 +161,17 @@ class CommonRvAdapter (var context: Context, val list: MutableList<Track>?) :
     ) {
         DownloadUtil.getInstance()
             .downloadFile(
-                InputParameter.Builder(baseUrl, fileUrl, desFilePath)
+                InputParameter.Builder(baseUrl, fileUrl, desFilePath!!)
                     .setCallbackOnUiThread(true)
                     .build(), object : DownloadListener {
                     @SuppressLint("SetTextI18n")
-                    override fun onFinish(file: File) {
+                    override fun onFinish(file: File?) {
 //                        mProgress.visibility = View.GONE
                         myFile = file
-                        Utils.installFile(context, file, "audio/mp4a-latm")
+                        Utils.installFile(context, file!!, "audio/mp4a-latm")
                         Utils.openLocalFile(context, myFile.toString())
                         //Insert download data
-                        val musicDao= AppDatabase.getDatabase(context).trackDao()
+                        val musicDao= TrackDatabase.getDatabase(context).trackDao()
                         thread {
                             val track = Track(
                                 trackId= trackId.toString(),
@@ -193,9 +193,9 @@ class CommonRvAdapter (var context: Context, val list: MutableList<Track>?) :
 //                        mProgress.progress = progress
                     }
 
-                    override fun onFailed(errMsg: String) {
+                    override fun onFailed(errMsg: String?) {
                         mProgress.visibility = View.GONE
-                        Utils.showToast(context, errMsg)
+                        Utils.showToast(context, errMsg!!)
                     }
                 })
     }

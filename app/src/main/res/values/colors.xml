@@ -1,14 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorStatusBarColor">#FFD28942</color>
-    <color name="colorPrimary">#FFD28942</color>
-    <color name="colorLogin">#FFD28942</color>
+    <color name="colorStatusBarColor">@color/grey31</color>
+<!--    <color name="colorPrimary">#FFD28942</color>-->
+    <color name="colorPrimary">@color/grey31</color>
+    <color name="colorAccent">@color/grey31</color>
     <color name="colorLoginEditText">#FFD6D6D6</color>
     <color name="colorPage">#FFF3F3FB</color>
-    <color name="colorText">#FF6E6565</color>
     <color name="colorView">#44000000</color>
 
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
     <color name="grey">#FF6E6565</color>
+    <color name="yellow">#FFD28942</color>
+
 </resources>

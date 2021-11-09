@@ -1,6 +1,5 @@
 package com.example.daisyling.common.util
 
-import android.content.Context
 import android.database.Cursor
 import android.database.sqlite.SQLiteDatabase
 import scut.carson_ho.searchview.RecordSQLiteOpenHelper
@@ -14,7 +13,7 @@ object SQLiteDatabase {
     /**
      * Query Data , show listView
      */
-    fun queryData(context: Context, helper: RecordSQLiteOpenHelper, tempName: String): Cursor{
+    fun queryData(helper: RecordSQLiteOpenHelper, tempName: String): Cursor{
        return helper.readableDatabase.rawQuery(
             "select id as _id,name from records where name like '%$tempName%' order by id desc ",
             null

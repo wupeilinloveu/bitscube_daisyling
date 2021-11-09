@@ -51,7 +51,7 @@ private constructor() {
         try {
             // preserve cached data
             cache = Cache(
-                File(MyApp.context!!.getExternalCacheDir(), "http-cache"),
+                File(MyApp.context!!.externalCacheDir, "http-cache"),
                 200 * 1024 * 1024
             ) // 200 MB
         } catch (e: Exception) {

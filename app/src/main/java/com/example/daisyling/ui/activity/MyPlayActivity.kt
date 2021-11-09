@@ -5,8 +5,8 @@ import android.view.View
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.daisyling.common.base.BaseActivity
 import com.example.daisyling.databinding.ActivityMyPlayBinding
-import com.example.daisyling.db.AppDatabase
 import com.example.daisyling.db.TrackDao
+import com.example.daisyling.db.TrackDatabase
 import com.example.daisyling.ui.adapter.CommonRvAdapter
 import kotlin.concurrent.thread
 
@@ -21,7 +21,7 @@ class MyPlayActivity : BaseActivity<ActivityMyPlayBinding>() {
 
     override fun initView() {
         //Query data
-        trackDao = AppDatabase.getDatabase(this).trackDao()
+        trackDao = TrackDatabase.getDatabase(this).trackDao()
         thread {
             val trackList = trackDao.loadAllTracks()
             if (trackList.isNotEmpty()) {
@@ -43,7 +43,7 @@ class MyPlayActivity : BaseActivity<ActivityMyPlayBinding>() {
         }
         binding.tvDelete.setOnClickListener {
             //Delete data
-            trackDao = AppDatabase.getDatabase(this).trackDao()
+            trackDao = TrackDatabase.getDatabase(this).trackDao()
             thread {
                 trackDao.deleteAllTracks(trackDao.loadAllTracks())
             }

@@ -43,7 +43,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
     }
 
     override fun initListener() {
-        binding.llSearch.setOnClickListener { v: View? ->
+        binding.llSearch.setOnClickListener {
             val intent = Intent(context, SearchActivity::class.java)
             val bundle = Bundle()
             intent.putExtras(bundle)

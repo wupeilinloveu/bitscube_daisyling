@@ -7,7 +7,7 @@ import android.app.Application
  */
 class MyApp : Application() {
     companion object {
-        lateinit var instance: MyApp private set
+        var instance: MyApp? = null
         var context: Application? = null
     }
 

@@ -11,26 +11,26 @@
         android:id="@+id/toolbar"
         android:layout_gravity="center"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/toolbar_height"
+        android:layout_height="@dimen/toolbar_height54"
         android:background="@color/white">
 
         <LinearLayout
             android:layout_marginTop="10dp"
             android:id="@+id/ll_search"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/search_height"
-            android:layout_marginStart="@dimen/search_marginEnd"
-            android:layout_marginEnd="@dimen/search_marginEnd"
+            android:layout_height="@dimen/button_height35"
+            android:layout_marginStart="@dimen/button_height10"
+            android:layout_marginEnd="@dimen/button_height10"
             android:background="@drawable/bg_search"
             android:clickable="true"
             android:focusable="true"
             android:orientation="horizontal">
 
             <ImageView
-                android:layout_width="@dimen/ic_search_width"
-                android:layout_height="@dimen/ic_search_height"
+                android:layout_width="@dimen/toolbar_height20"
+                android:layout_height="@dimen/toolbar_height20"
                 android:layout_gravity="center"
-                android:layout_marginStart="@dimen/ic_search_marginStart"
+                android:layout_marginStart="@dimen/button_height10"
                 android:src="@mipmap/ic_search" />
 
             <TextView
@@ -60,7 +60,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
-                android:background="@drawable/bg_white_radius"
+                android:background="@drawable/bg_radius_white"
                 android:orientation="vertical"
                 android:visibility="gone">
 
@@ -107,7 +107,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
                 android:layout_marginBottom="10dp"
-                android:background="@drawable/bg_white_radius"
+                android:background="@drawable/bg_radius_white"
                 android:orientation="vertical"
                 android:visibility="gone">
 
@@ -130,7 +130,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="20dp"
                     android:layout_marginEnd="10dp"
-                    android:background="@drawable/bg_white_radius"
+                    android:background="@drawable/bg_radius_white"
                     android:divider="#FFFFFFFD"
                     android:visibility="visible" />
 

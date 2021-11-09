@@ -12,13 +12,13 @@
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/toolbar_height"
+        android:layout_height="@dimen/toolbar_height54"
         android:background="@color/white">
 
         <ImageView
             android:id="@+id/img_back"
-            android:layout_width="@dimen/toolbar_back_height"
-            android:layout_height="@dimen/toolbar_back_height"
+            android:layout_width="@dimen/toolbar_height20"
+            android:layout_height="@dimen/toolbar_height20"
             android:layout_gravity="center_vertical"
             android:src="@drawable/ic_arrow_back" />
 
@@ -30,7 +30,7 @@
             android:gravity="center"
             android:text="@string/common_video"
             android:textColor="@color/black"
-            android:textSize="@dimen/toolbar_textSize"
+            android:textSize="@dimen/toolbar_textSize20"
             tools:ignore="SpUsage" />
 
     </androidx.appcompat.widget.Toolbar>
@@ -62,7 +62,7 @@
                     android:id="@+id/rv_video"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="@drawable/bg_white_radius"
+                    android:background="@drawable/bg_radius_white"
                     android:divider="#FFFFFFFD"
                     android:paddingTop="10dp"
                     android:paddingEnd="10dp"

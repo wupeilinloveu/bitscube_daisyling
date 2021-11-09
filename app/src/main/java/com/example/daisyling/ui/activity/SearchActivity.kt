@@ -50,7 +50,7 @@ class SearchActivity : BaseActivity<ActivitySearchBinding>() {
         binding.rvSearchVideo.layoutManager = LinearLayoutManager(this)
 
         helper = RecordSQLiteOpenHelper(this)
-        cursor = queryData(this, helper!!, "")
+        cursor = queryData( helper!!, "")
         showHistory()
     }
 
@@ -104,22 +104,18 @@ class SearchActivity : BaseActivity<ActivitySearchBinding>() {
             override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {}
             override fun afterTextChanged(s: Editable) {
                 val tempName: String = binding.etSearch.text.toString()
-                queryData(
-                    this@SearchActivity,
-                    helper!!,
-                    tempName
-                )
+                queryData(helper!!, tempName)
             }
         })
 
-        binding.etSearch.setOnKeyListener { v, keyCode, event ->
+        binding.etSearch.setOnKeyListener { _, keyCode, event ->
             if (keyCode == KeyEvent.KEYCODE_ENTER && event.action == KeyEvent.ACTION_DOWN) {
                 etSearch = binding.etSearch.text.toString().trim { it <= ' ' }
                 mCallBack?.SearchAciton(binding.etSearch.text.toString())
                 val hasData = hasData(helper!!, binding.etSearch.text.toString().trim())
                 if (!hasData) {
                     insertData(helper!!, binding.etSearch.text.toString().trim())
-                    queryData(this@SearchActivity, helper!!, "")
+                    queryData( helper!!, "")
                 }
                 getData()
             }

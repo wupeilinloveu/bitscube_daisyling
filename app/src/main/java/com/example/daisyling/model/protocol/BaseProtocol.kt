@@ -6,7 +6,6 @@ import org.json.JSONObject
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
-import java.util.*
 
 /**
  * Created by Emily on 9/30/21
@@ -43,7 +42,7 @@ open class BaseProtocol {
                     } else {
                         //Request failed
                         val jsonObject =
-                            JSONObject(Objects.requireNonNull(response.errorBody())?.string())
+                            JSONObject(response.errorBody()?.string())
                         val msg = jsonObject.getString("msg")
                         callback?.onHttpError(reqType, msg)
                     }

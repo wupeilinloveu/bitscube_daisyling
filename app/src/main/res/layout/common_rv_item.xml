@@ -54,12 +54,12 @@
 
         <ImageView
             android:id="@+id/common_img_more_vert"
-            android:layout_width="@dimen/ic_more_vert_width"
-            android:layout_height="@dimen/ic_more_vert_height"
+            android:layout_width="@dimen/icon_width20"
+            android:layout_height="@dimen/icon_height20"
             android:layout_alignParentEnd="true"
             android:clickable="true"
             android:focusable="true"
-            android:src="@drawable/ic_more_vert" />
+            android:src="@drawable/ic_more_grey" />
 
     </RelativeLayout>
 

@@ -3,6 +3,8 @@ package com.example.daisyling.ui.adapter
 import android.annotation.SuppressLint
 import android.app.Dialog
 import android.content.Context
+import android.content.Intent
+import android.os.Bundle
 import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
@@ -18,9 +20,10 @@ import com.example.daisyling.common.util.Utils
 import com.example.daisyling.common.util.download.DownloadListener
 import com.example.daisyling.common.util.download.DownloadUtil
 import com.example.daisyling.common.util.download.InputParameter
-import com.example.daisyling.db.AppDatabase
 import com.example.daisyling.db.Track
+import com.example.daisyling.db.TrackDatabase
 import com.example.daisyling.model.bean.MusicResult
+import com.example.local_music.ui.view.main.CommonMusicActivity
 import com.scwang.smartrefresh.layout.util.DensityUtil
 import com.squareup.picasso.Picasso
 import java.io.File
@@ -35,49 +38,66 @@ class MusicRvQuickAdapter(data: MutableList<MusicResult>?) :
     private var myFile: File? = null
 
     @SuppressLint("SetTextI18n")
-    override fun convert(baseViewHolder: BaseViewHolder, list: MusicResult) {
+    override fun convert(holder: BaseViewHolder, item: MusicResult) {
         val mCommonLlItem =
-            baseViewHolder.getView<LinearLayout>(R.id.common_ll_item)
+            holder.getView<LinearLayout>(R.id.common_ll_item)
         val mCommonIvIcon =
-            baseViewHolder.getView<ImageView>(R.id.common_iv_icon)
+            holder.getView<ImageView>(R.id.common_iv_icon)
         val mCommonTvTitle =
-            baseViewHolder.getView<TextView>(R.id.common_tv_title)
+            holder.getView<TextView>(R.id.common_tv_title)
         val mCommonTvContent =
-            baseViewHolder.getView<TextView>(R.id.common_tv_content)
+            holder.getView<TextView>(R.id.common_tv_content)
         val mCommonImgMoreVert =
-            baseViewHolder.getView<ImageView>(R.id.common_img_more_vert)
+            holder.getView<ImageView>(R.id.common_img_more_vert)
         val mCommonProgress =
-            baseViewHolder.getView<ProgressBar>(R.id.common_progress)
+            holder.getView<ProgressBar>(R.id.common_progress)
 
-        Picasso.get().load(list.artworkUrl100)
-            .transform(com.example.daisyling.ui.view.CircleCornerForm()).into(mCommonIvIcon)
-        val name = list.trackName
+        Picasso.get().load(item.artworkUrl100)
+            .transform(com.example.daisyling.ui.widget.CircleCornerForm()).into(mCommonIvIcon)
+        val name = item.trackName
         mCommonTvTitle.text = name
         mCommonTvContent.text =
-            list.artistName + "," + list.trackCensoredName
+            item.artistName + "," + item.trackCensoredName
 
-        val trackId = list.trackId
-        val artworkUrl100 = list.artworkUrl100
-        val trackName = list.trackName
-        val artistName = list.artistName
-        val trackCensoredName = list.trackCensoredName
-        val url = list.previewUrl
+        val trackId = item.trackId
+        val artworkUrl100 = item.artworkUrl100
+        val trackName = item.trackName
+        val artistName = item.artistName
+        val trackCensoredName = item.trackCensoredName
+        val url = item.previewUrl
 
         val baseUrl = url.substring(0, 34)
         val fileUrl = url.substring(34)
         mCommonLlItem.setOnClickListener {
-            if (myFile.toString().contains(name)) {
-                Utils.installFile(context, myFile!!, "audio/mp4a-latm")
-                Utils.openLocalFile(context,myFile.toString())
-            } else {
-                mCommonProgress.visibility = View.VISIBLE
-                desFilePath = context.getExternalFilesDir(null)!!.absolutePath + "/" + "$name"
-                startDownload(
-                    trackId, artworkUrl100, trackName,
-                    artistName, trackCensoredName, url,
-                    baseUrl, fileUrl, desFilePath, mCommonProgress
-                )
-            }
+
+//            val intent = Intent(context, MusicDetailActivity::class.java)
+//            val bundle = Bundle()
+//            bundle.putInt(Const.TRACk_ID,trackId)
+//            bundle.putString(Const.ARTWORK_URL,artworkUrl100)
+//            bundle.putString(Const.TRACK_NAME,trackName)
+//            bundle.putString(Const.ARTIST_NAME,artistName)
+//            bundle.putString(Const.TRACK_CENSORED_NAME,trackCensoredName)
+//            bundle.putString(Const.PREVIEW_URL,url)
+//            intent.putExtras(bundle)
+//            context.startActivity(intent)
+
+            val intent = Intent(context, CommonMusicActivity::class.java)
+            val bundle = Bundle()
+            intent.putExtras(bundle)
+            context.startActivity(intent)
+
+//            if (myFile.toString().contains(name)) {
+//                Utils.installFile(context, myFile!!, "audio/mp4a-latm")
+//                Utils.openLocalFile(context,myFile.toString())
+//            } else {
+//                mCommonProgress.visibility = View.VISIBLE
+//                desFilePath = context.getExternalFilesDir(null)!!.absolutePath + "/" + "$name"
+//                startDownload(
+//                    trackId, artworkUrl100, trackName,
+//                    artistName, trackCensoredName, url,
+//                    baseUrl, fileUrl, desFilePath, mCommonProgress
+//                )
+//            }
         }
 
         mCommonImgMoreVert.setOnClickListener {
@@ -102,7 +122,7 @@ class MusicRvQuickAdapter(data: MutableList<MusicResult>?) :
     ) {
         val buttonDialog: Dialog = Dialog(context, R.style.BottomDialog)
         val view: View =
-            LayoutInflater.from(context).inflate(R.layout.common_dialog_content_circle, null)
+            LayoutInflater.from(context).inflate(R.layout.common_bottom_dialog, null)
         val mTvName: TextView = view.findViewById(R.id.tv_name)
         val mTvDownLoad: TextView = view.findViewById(R.id.tv_download)
         val mTvFavorite: TextView = view.findViewById(R.id.tv_favorite)
@@ -167,17 +187,17 @@ class MusicRvQuickAdapter(data: MutableList<MusicResult>?) :
     ) {
         DownloadUtil.getInstance()
             .downloadFile(
-                InputParameter.Builder(baseUrl, fileUrl, desFilePath)
+                InputParameter.Builder(baseUrl, fileUrl, desFilePath!!)
                     .setCallbackOnUiThread(true)
                     .build(), object : DownloadListener {
                     @SuppressLint("SetTextI18n")
-                    override fun onFinish(file: File) {
+                    override fun onFinish(file: File?) {
                         mProgress.visibility = View.GONE
                         myFile = file
-                        Utils.installFile(context, file, "audio/mp4a-latm")
+//                        Utils.installFile(context, file, "audio/mp4a-latm")
 //                        Utils.openLocalFile(context, myFile.toString())
                         //Insert download data
-                        val musicDao=AppDatabase.getDatabase(context).trackDao()
+                        val musicDao= TrackDatabase.getDatabase(context).trackDao()
                         thread {
                             val track = Track(
                                 trackId = trackId.toString(),
@@ -199,9 +219,9 @@ class MusicRvQuickAdapter(data: MutableList<MusicResult>?) :
                         mProgress.progress = progress
                     }
 
-                    override fun onFailed(errMsg: String) {
+                    override fun onFailed(errMsg: String?) {
                         mProgress.visibility = View.GONE
-                        Utils.showToast(context, errMsg)
+                        Utils.showToast(context, errMsg!!)
                     }
                 })
     }

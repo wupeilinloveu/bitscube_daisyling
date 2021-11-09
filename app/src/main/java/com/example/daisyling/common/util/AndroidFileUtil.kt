@@ -1,5 +1,7 @@
 package com.example.daisyling.common.util
 
+import java.util.*
+
 /**
  * Created by Emily on 10/11/21
  */
@@ -10,8 +12,8 @@ object AndroidFileUtil {
         val dotIndex = path.lastIndexOf(".")
         if (dotIndex < 0) return type
         //suffix name
-        val fileType = path.substring(dotIndex, path.length).toLowerCase()
-        if (fileType == null || "" == fileType) return type
+        val fileType = path.substring(dotIndex, path.length).lowercase(Locale.getDefault())
+        if ("" == fileType) return type
         for (i in MIME_MapTable.indices) {
             if (fileType == MIME_MapTable[i][0]) type = MIME_MapTable[i][1]
         }

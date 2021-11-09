@@ -13,7 +13,7 @@ class Const {
         const val DEFAULT_LIMIT = 5
         const val DEFAULT_OFFSET = 5
 
-        const val USER_ID="user_id"
+        const val TRACk_ID="trackId"
         const val ARTWORK_URL="artworkUrl100"
         const val TRACK_NAME="trackName"
         const val ARTIST_NAME="artistName"

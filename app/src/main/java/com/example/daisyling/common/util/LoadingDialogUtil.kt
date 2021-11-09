@@ -11,7 +11,7 @@ import com.example.daisyling.R
 /**
  * Created by Emily on 9/30/21
  */
-class LoadingDialogUtil(context: Context) : Dialog(context, R.style.CustomProgressDialog) {
+class LoadingDialogUtil(context: Context) : Dialog(context, R.style.BottomDialog) {
     private var imgIv: ImageView? = null
 
     init {

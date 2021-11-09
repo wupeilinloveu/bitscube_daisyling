@@ -2,7 +2,6 @@ package com.example.daisyling.ui.activity
 
 import android.os.Message
 import android.view.View
-import android.widget.RadioGroup
 import com.example.daisyling.R
 import com.example.daisyling.common.base.BaseActivity
 import com.example.daisyling.databinding.ActivityMainBinding
@@ -35,7 +34,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
             myFragment
         )
 
-        binding.radioGroup.setOnCheckedChangeListener(RadioGroup.OnCheckedChangeListener { radioGroup, position ->
+        binding.radioGroup.setOnCheckedChangeListener { radioGroup, _ ->
             when (radioGroup.checkedRadioButtonId) {
                 R.id.rb_home -> {
                     showHideFragment(homeFragment)
@@ -44,7 +43,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
                     showHideFragment(myFragment)
                 }
             }
-        })
+        }
     }
 
     override fun onClick(v: View?) {

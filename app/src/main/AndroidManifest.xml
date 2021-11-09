@@ -4,7 +4,9 @@
     package="com.example.daisyling">
 
     <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission
+        android:name="android.permission.WRITE_EXTERNAL_STORAGE"
         tools:ignore="ScopedStorage" />
 
     <application
@@ -16,6 +18,7 @@
         android:roundIcon="@mipmap/ic_daisyling"
         android:supportsRtl="true"
         android:theme="@style/TranslucentTheme"
+        tools:replace="android:name"
         tools:targetApi="n">
         <activity android:name=".ui.activity.MainActivity">
             <intent-filter>
@@ -24,14 +27,29 @@
             </intent-filter>
 
         </activity>
-        <activity android:name=".ui.activity.LoginActivity" android:theme="@style/LoginTheme" />
+        <activity
+            android:name=".ui.activity.LoginActivity"
+            android:theme="@style/MyTheme" />
         <activity android:name=".ui.activity.SearchActivity" />
-        <activity android:name=".ui.activity.MusicActivity"/>
-        <activity android:name=".ui.activity.VideoActivity"/>
-        <activity android:name=".ui.activity.MyDownLoadActivity"/>
-        <activity android:name=".ui.activity.MyFavoriteActivity"/>
-        <activity android:name=".ui.activity.MyPlayActivity"/>
-        <activity android:name=".ui.activity.MyAppVersionActivity"/>
+        <activity android:name=".ui.activity.MusicActivity" />
+        <activity android:name=".ui.activity.VideoActivity" />
+        <activity android:name=".ui.activity.MyDownLoadActivity" />
+        <activity android:name=".ui.activity.MyFavoriteActivity" />
+        <activity android:name=".ui.activity.MyPlayActivity" />
+        <activity android:name=".ui.activity.MyAppVersionActivity" />
+        <activity android:name="com.example.local_music.ui.view.main.CommonMusicActivity"
+            android:theme="@style/MyTheme"/>
+        <activity android:name="com.example.local_music.ui.view.main.setting.AboutActivity"
+            android:theme="@style/MyTheme"/>
+        <activity android:name="com.example.local_music.ui.view.main.setting.FindSongActivity"
+            android:theme="@style/MyTheme"/>
+        <activity android:name="com.example.local_music.ui.view.main.song.edit.SongEditActivity"
+            android:theme="@style/MyTheme"/>
+        <activity android:name="com.example.local_music.ui.view.main.song.edit.SongsEditActivity"
+            android:theme="@style/MyTheme"/>
+        <activity android:name="com.example.local_music.ui.view.main.song.SongListActivity"
+            android:theme="@style/MyTheme"/>
+
         <provider
             android:name="androidx.core.content.FileProvider"
             android:authorities="com.example.daisyling.ui.activity.FileProvider"
