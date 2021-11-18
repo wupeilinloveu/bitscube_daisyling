@@ -5,29 +5,29 @@ import android.view.View
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.daisyling.common.base.BaseActivity
 import com.example.daisyling.databinding.ActivityMyDownloadBinding
-import com.example.daisyling.db.TrackDao
-import com.example.daisyling.db.TrackDatabase
-import com.example.daisyling.ui.adapter.CommonRvAdapter
+import com.example.daisyling.db.AppDatabase
+import com.example.daisyling.db.MyDownLoadDao
+import com.example.daisyling.ui.adapter.TrackDbRvAdapter
 import kotlin.concurrent.thread
 
 /**
  * Created by Emily on 10/19/21
  */
 class MyDownLoadActivity : BaseActivity<ActivityMyDownloadBinding>() {
-    private lateinit var trackDao: TrackDao
-    private lateinit var adapter: CommonRvAdapter
+    private lateinit var myDownLoadDao: MyDownLoadDao
+    private lateinit var adapter: TrackDbRvAdapter
 
     override fun getViewBinding() = ActivityMyDownloadBinding.inflate(layoutInflater)
 
     override fun initView() {
         //Query data
-        trackDao = TrackDatabase.getDatabase(this).trackDao()
+        myDownLoadDao = AppDatabase.getDatabase(this).myDownLoadDao()
         thread {
-            val trackList = trackDao.loadAllTracks()
+            val trackList = myDownLoadDao.loadAllTracks()
             if (trackList.isNotEmpty()) {
                 binding.rv.visibility = View.VISIBLE
                 binding.rv.layoutManager = LinearLayoutManager(this)
-                adapter = CommonRvAdapter(this,trackList)
+                adapter = TrackDbRvAdapter(this,trackList,"audio/mp4a-latm")
                 binding.rv.adapter = adapter
             }else{
                 binding.rv.visibility = View.GONE

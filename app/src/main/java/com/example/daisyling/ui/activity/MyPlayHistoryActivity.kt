@@ -4,33 +4,32 @@ import android.os.Message
 import android.view.View
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.daisyling.common.base.BaseActivity
-import com.example.daisyling.databinding.ActivityMyFavoriteBinding
+import com.example.daisyling.databinding.ActivityMyPlayHistoryBinding
 import com.example.daisyling.db.AppDatabase
-import com.example.daisyling.db.MyFavoriteDao
+import com.example.daisyling.db.MyPlayHistoryDao
 import com.example.daisyling.ui.adapter.TrackDbRvAdapter
 import kotlin.concurrent.thread
 
 /**
  * Created by Emily on 10/19/21
  */
-class MyFavoriteActivity : BaseActivity<ActivityMyFavoriteBinding>() {
-    private lateinit var myFavoriteDao: MyFavoriteDao
+class MyPlayHistoryActivity : BaseActivity<ActivityMyPlayHistoryBinding>() {
+    private lateinit var myPlayHistoryDao: MyPlayHistoryDao
     private lateinit var adapter: TrackDbRvAdapter
 
-    override fun getViewBinding() = ActivityMyFavoriteBinding.inflate(layoutInflater)
+    override fun getViewBinding() = ActivityMyPlayHistoryBinding.inflate(layoutInflater)
 
     override fun initView() {
         //Query data
-        myFavoriteDao = AppDatabase.getDatabase(this).myFavoriteDao()
+        myPlayHistoryDao = AppDatabase.getDatabase(this).myPlayHistoryDao()
         thread {
-            val trackList = myFavoriteDao.loadAllTracks()
+            val trackList = myPlayHistoryDao.loadAllTracks()
             if (trackList.isNotEmpty()) {
+                binding.tvDelete.visibility=View.VISIBLE
                 binding.rv.visibility = View.VISIBLE
                 binding.rv.layoutManager = LinearLayoutManager(this)
-                adapter = TrackDbRvAdapter(this,trackList,"audio/mp4a-latm")
+                adapter = TrackDbRvAdapter( this,trackList,"audio/mp4a-latm")
                 binding.rv.adapter = adapter
-            }else{
-                binding.rv.visibility = View.GONE
             }
         }
     }
@@ -41,6 +40,15 @@ class MyFavoriteActivity : BaseActivity<ActivityMyFavoriteBinding>() {
     override fun initListener() {
         binding.imgBack.setOnClickListener {
             finish()
+        }
+        binding.tvDelete.setOnClickListener {
+            //Delete data
+//            trackDao = TrackDatabase.getDatabase(this).trackDao()
+//            thread {
+//                trackDao.deleteAllTracks(trackDao.loadAllTracks())
+//            }
+            binding.tvDelete.visibility = View.GONE
+            binding.rv.visibility = View.GONE
         }
     }
 

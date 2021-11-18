@@ -1,8 +1,7 @@
 package com.example.daisyling.model.protocol
 
-import com.example.daisyling.model.bean.Music
-import com.example.daisyling.model.bean.TrackIdBean
-import com.example.daisyling.model.bean.Video
+import com.example.daisyling.model.bean.Track
+import com.example.daisyling.model.bean.TrackId
 
 /**
  * Created by Emily on 9/30/21
@@ -16,7 +15,7 @@ class CommonProtocol : BaseProtocol() {
             super.service!!.getMusic(term, limit, offset),
             callback,
             IHttpService.HTTP_GET_MUSIC,
-            Music::class.java
+            Track::class.java
         )
     }
 
@@ -28,7 +27,7 @@ class CommonProtocol : BaseProtocol() {
             super.service!!.getVideo(term, limit, offset),
             callback,
             IHttpService.HTTP_GET_VIDEO,
-            Video::class.java
+            Track::class.java
         )
     }
 
@@ -40,7 +39,7 @@ class CommonProtocol : BaseProtocol() {
             super.service!!.getTrackId(id),
             callback,
             IHttpService.HTTP_GET_TRACK_ID,
-            TrackIdBean::class.java
+            TrackId::class.java
         )
     }
 }

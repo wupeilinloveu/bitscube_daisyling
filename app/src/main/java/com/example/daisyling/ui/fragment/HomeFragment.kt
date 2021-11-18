@@ -11,15 +11,13 @@ import com.example.daisyling.common.base.BaseFragment
 import com.example.daisyling.common.base.Const
 import com.example.daisyling.common.util.GsonUtil
 import com.example.daisyling.databinding.FragmentHomeBinding
-import com.example.daisyling.model.bean.Music
-import com.example.daisyling.model.bean.Video
+import com.example.daisyling.model.bean.Track
 import com.example.daisyling.model.protocol.IHttpService
 import com.example.daisyling.presenter.CommonPresenter
 import com.example.daisyling.ui.activity.MusicActivity
 import com.example.daisyling.ui.activity.SearchActivity
 import com.example.daisyling.ui.activity.VideoActivity
-import com.example.daisyling.ui.adapter.MusicRvQuickAdapter
-import com.example.daisyling.ui.adapter.VideoRvQuickAdapter
+import com.example.daisyling.ui.adapter.TrackRvQuickAdapter
 
 /**
  * Created by Emily on 9/30/21
@@ -36,7 +34,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
     }
 
     override fun initData() {
-        showLoading();
+//        showLoading();
         commonPresenter = CommonPresenter(this)
         commonPresenter?.getMusic(Const.DEFAULT_MUSIC_TERM, Const.DEFAULT_LIMIT, Const.DEFAULT_OFFSET)
         commonPresenter?.getVideo(Const.DEFAULT_VIDEO_TERM, Const.DEFAULT_LIMIT, Const.DEFAULT_OFFSET)
@@ -69,23 +67,23 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
     }
 
     override fun onHttpSuccess(reqType: Int, msg: Message) {
-        dismissLoading();
+//        dismissLoading();
         if (reqType == IHttpService.HTTP_GET_MUSIC) {
-            val musicBean = GsonUtil.gsonToBean(msg.obj as String, Music::class.java)
+            val musicBean = GsonUtil.gsonToBean(msg.obj as String, Track::class.java)
             if (musicBean.results.isNotEmpty()) {
                 binding.llSearchMusic.visibility=View.VISIBLE
                 val searchMusicRvAdapter =
-                    MusicRvQuickAdapter(musicBean.results)
+                    TrackRvQuickAdapter(musicBean.results,"audio/mp4a-latm")
                 binding.rvSearchMusic.adapter = searchMusicRvAdapter
             }
         }
 
         if (reqType == IHttpService.HTTP_GET_VIDEO) {
-            val videoBean = GsonUtil.gsonToBean(msg.obj as String, Video::class.java)
+            val videoBean = GsonUtil.gsonToBean(msg.obj as String, Track::class.java)
             if (videoBean.results.isNotEmpty()) {
                 binding.llSearchVideo.visibility=View.VISIBLE
                 val videoRvAdapter =
-                    VideoRvQuickAdapter(videoBean.results)
+                    TrackRvQuickAdapter(videoBean.results,"video/x-m4v")
                 binding.rvSearchVideo.adapter = videoRvAdapter
             }
         }

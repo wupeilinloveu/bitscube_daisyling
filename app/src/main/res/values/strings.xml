@@ -59,8 +59,7 @@
     <string name="delete">删除</string>
     <string name="download_success">已下载</string>
     <string name="favorite_success">已收藏</string>
-    <string name="share_success">已分享</string>
-    <string name="comment_success">已评论</string>
+    <string name="delete_success">已删除</string>
     <string name="play_control_mode_success">单曲循环</string>
     <string name="alert_success">已投诉</string>
     <string name="develop_tip">正在开发中</string>

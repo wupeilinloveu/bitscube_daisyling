@@ -6,21 +6,19 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.daisyling.common.base.BaseActivity
 import com.example.daisyling.common.base.Const
 import com.example.daisyling.common.util.GsonUtil
-import com.example.daisyling.common.util.LogUtil
 import com.example.daisyling.databinding.ActivityMusicBinding
-import com.example.daisyling.model.bean.Music
+import com.example.daisyling.model.bean.Track
 import com.example.daisyling.model.protocol.IHttpService
 import com.example.daisyling.presenter.CommonPresenter
-import com.example.daisyling.ui.adapter.MusicRvQuickAdapter
+import com.example.daisyling.ui.adapter.TrackRvQuickAdapter
 import com.scwang.smartrefresh.header.MaterialHeader
-import com.scwang.smartrefresh.layout.listener.OnLoadMoreListener
 
 /**
  * Created by Emily on 10/13/21
  */
 class MusicActivity : BaseActivity<ActivityMusicBinding>() {
     private var page: Int = 1
-    private var adapter: MusicRvQuickAdapter? = null
+    private var adapter: TrackRvQuickAdapter? = null
     private var commonPresenter: CommonPresenter? = null
     private var etSearch: String? = null
 
@@ -29,7 +27,6 @@ class MusicActivity : BaseActivity<ActivityMusicBinding>() {
     override fun initView() {
         val bundle = this.intent.extras
         etSearch = bundle?.getString(Const.SEARCH, Const.DEFAULT_MUSIC_TERM)
-        LogUtil.d(etSearch!!)
 
         binding.rvMusic.layoutManager = LinearLayoutManager(this)
         initRecyclerView()
@@ -42,15 +39,15 @@ class MusicActivity : BaseActivity<ActivityMusicBinding>() {
         binding.refreshMusic.setDisableContentWhenRefresh(true)
         binding.refreshMusic.setDisableContentWhenLoading(true)
 
-        binding.refreshMusic.setOnLoadMoreListener(OnLoadMoreListener { refreshlayout ->
+        binding.refreshMusic.setOnLoadMoreListener { refreshlayout ->
             refreshlayout.finishLoadMore(1500, false, false)
             page++
             commonPresenter?.getMusic(etSearch!!, Const.MEDIA_LIMIT, Const.MEDIA_LIMIT * page)
-        })
+        }
     }
 
     override fun initData() {
-        showLoading()
+//        showLoading()
         commonPresenter = CommonPresenter(this)
         commonPresenter?.getMusic(etSearch!!, Const.MEDIA_LIMIT, Const.MEDIA_OFFSET)
     }
@@ -65,15 +62,15 @@ class MusicActivity : BaseActivity<ActivityMusicBinding>() {
     }
 
     override fun onHttpSuccess(reqType: Int, msg: Message) {
-        dismissLoading()
+//        dismissLoading()
         if (reqType == IHttpService.HTTP_GET_MUSIC) {
-            val musicBean = GsonUtil.gsonToBean(msg.obj as String, Music::class.java)
+            val musicBean = GsonUtil.gsonToBean(msg.obj as String, Track::class.java)
             if (musicBean.results.isNotEmpty()) {
                 binding.refreshMusic.visibility = View.VISIBLE
                 if (page == 1) {
                     if (adapter == null) {
                         adapter =
-                            MusicRvQuickAdapter(musicBean.results)
+                            TrackRvQuickAdapter(musicBean.results,"audio/mp4a-latm")
                         binding.rvMusic.adapter = adapter
                     }
                 } else {

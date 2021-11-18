@@ -23,12 +23,10 @@ import com.example.daisyling.common.util.SQLiteDatabase.hasData
 import com.example.daisyling.common.util.SQLiteDatabase.insertData
 import com.example.daisyling.common.util.SQLiteDatabase.queryData
 import com.example.daisyling.databinding.ActivitySearchBinding
-import com.example.daisyling.model.bean.Music
-import com.example.daisyling.model.bean.Video
+import com.example.daisyling.model.bean.Track
 import com.example.daisyling.model.protocol.IHttpService
 import com.example.daisyling.presenter.CommonPresenter
-import com.example.daisyling.ui.adapter.MusicRvQuickAdapter
-import com.example.daisyling.ui.adapter.VideoRvQuickAdapter
+import com.example.daisyling.ui.adapter.TrackRvQuickAdapter
 import scut.carson_ho.searchview.ICallBack
 import scut.carson_ho.searchview.RecordSQLiteOpenHelper
 
@@ -123,7 +121,7 @@ class SearchActivity : BaseActivity<ActivitySearchBinding>() {
         }
 
         binding.listView.onItemClickListener =
-            AdapterView.OnItemClickListener { parent, view, position, id ->
+            AdapterView.OnItemClickListener { _, view, _, _ ->
                 val textView: TextView = view.findViewById<View>(android.R.id.text1) as TextView
                 val name: String = textView.text.toString()
                 binding.etSearch.setText(name)
@@ -155,10 +153,10 @@ class SearchActivity : BaseActivity<ActivitySearchBinding>() {
             binding.tvSearchMusic.visibility = View.VISIBLE
             binding.llSearchMusicMore.visibility = View.VISIBLE
             binding.rvSearchMusic.visibility = View.VISIBLE
-            val musicBean = GsonUtil.gsonToBean(msg.obj as String, Music::class.java)
+            val musicBean = GsonUtil.gsonToBean(msg.obj as String, Track::class.java)
             if (musicBean.results.isNotEmpty()) {
                 val searchMusicRvAdapter =
-                    MusicRvQuickAdapter(musicBean.results)
+                    TrackRvQuickAdapter(musicBean.results,"audio/mp4a-latm")
                 binding.rvSearchMusic.adapter = searchMusicRvAdapter
             } else {
                 binding.llSearchMusicNoHistory.visibility = View.VISIBLE
@@ -171,10 +169,10 @@ class SearchActivity : BaseActivity<ActivitySearchBinding>() {
             binding.tvSearchVideo.visibility = View.VISIBLE
             binding.llSearchVideoMore.visibility = View.VISIBLE
             binding.rvSearchVideo.visibility = View.VISIBLE
-            val videoBean = GsonUtil.gsonToBean(msg.obj as String, Video::class.java)
+            val videoBean = GsonUtil.gsonToBean(msg.obj as String, Track::class.java)
             if (videoBean.results.isNotEmpty()) {
                 val videoRvAdapter =
-                    VideoRvQuickAdapter(videoBean.results)
+                    TrackRvQuickAdapter(videoBean.results,"video/x-m4v")
                 binding.rvSearchVideo.adapter = videoRvAdapter
             } else {
                 binding.llSearchVideoNoHistory.visibility = View.VISIBLE

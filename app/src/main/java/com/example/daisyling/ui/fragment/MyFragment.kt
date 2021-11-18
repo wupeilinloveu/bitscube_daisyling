@@ -1,8 +1,6 @@
 package com.example.daisyling.ui.fragment
 
 import android.content.Intent
-import android.media.AudioManager
-import android.media.MediaPlayer
 import android.os.Message
 import android.text.TextUtils
 import android.view.LayoutInflater
@@ -55,7 +53,7 @@ class MyFragment : BaseFragment<FragmentMyBinding>() {
         }
 
         binding.tvMyPlay.setOnClickListener {
-            val intent = Intent(_mActivity, MyPlayActivity::class.java)
+            val intent = Intent(_mActivity, MyPlayHistoryActivity::class.java)
             startActivity(intent)
         }
 
